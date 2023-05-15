@@ -13,7 +13,7 @@ function Database_Space(){
     
     const [DATABASE_SPACE, setDATABASE_SPACE]= useState([])    
     useEffect (() => {        
-            fetch("http://192.168.1.57:3036/DATABASE_SPACE")
+            fetch("http://localhost:3036/DATABASE_SPACE")
             .then(response => response.json())
             .then( data =>{ setDATABASE_SPACE(data.data)} )
             .catch(error =>console.error(error))
@@ -21,7 +21,7 @@ function Database_Space(){
 
      const [DATABASE_SPACEfrq, setDATABASE_SPACEfrq]= useState([])    
     useEffect (() => {        
-            fetch("http://192.168.1.57:3035/DATABASE_SPACE")
+            fetch("http://localhost:3035/DATABASE_SPACE")
             .then(response => response.json())
             .then( data =>{ setDATABASE_SPACEfrq(data.data)} )
             .catch(error =>console.error(error))
@@ -55,6 +55,7 @@ const loading = <img src={loadingif} className="loading"/>
    
 
     return (
+        <div className='containerMAIN' >
         <div className='container_1'>
         <div className='principal_container'>         
         
@@ -91,7 +92,8 @@ const loading = <img src={loadingif} className="loading"/>
 	
         </div>
 	
-    </div>        
+    </div>   
+    </div>     
     )
 }
 export default Database_Space;

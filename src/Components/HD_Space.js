@@ -8,7 +8,7 @@ function HD_Space(){
     
     const [HD_SPACE, setHD_SPACE]= useState([])    
     useEffect (() => {        
-            fetch("http://192.168.1.57:3036/HD_SPACE")
+            fetch("http://localhost:3036/HD_SPACE")
             .then(response => response.json())
             .then( data =>{ setHD_SPACE(data.data)} )
             .catch(error =>console.error(error))
@@ -16,7 +16,7 @@ function HD_Space(){
             
     const [HD_SPACEfrq, setHD_SPACEfrq]= useState([])    
         useEffect (() => {        
-                fetch("http://192.168.1.57:3035/HD_SPACE")
+                fetch("http://localhost:3035/HD_SPACE")
                 .then(response => response.json())
                 .then( data =>{ setHD_SPACEfrq(data.data)} )
                 .catch(error =>console.error(error))
@@ -43,6 +43,7 @@ function HD_Space(){
    
 
     return (
+        <div className='containerMAIN' >
         <div className='container_1'>
         <div className='principal_container'>         
         
@@ -79,7 +80,8 @@ function HD_Space(){
 	
         </div>
 	
-    </div>        
+    </div>    
+    </div>    
     )
 }
 export default HD_Space;

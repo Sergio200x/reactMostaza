@@ -14,28 +14,28 @@ function Sync(){
     
     const [syncro, setSync]= useState([])    
     useEffect (() => {        
-            fetch("http://192.168.1.57:3031/synclocales")
+            fetch("http://localhost:3039/synclocales")
             .then(response => response.json())
             .then( data =>{ setSync(data.data)} )
             .catch(error =>console.error(error))
             }, [])    
     const [syncroGMG, setSyncGMG]= useState([])    
             useEffect (() => {        
-                    fetch("http://192.168.1.57:3032/synclocales")
+                    fetch("http://localhost:3032/synclocales")
                     .then(response => response.json())
                     .then( data =>{ setSyncGMG(data.data)} )
                     .catch(error =>console.error(error))
                     }, []) 
     const [syncroUY, setSyncUY]= useState([])    
             useEffect (() => {        
-                    fetch("http://192.168.1.57:3033/synclocales")
+                    fetch("http:/localhost:3033/synclocales")
                     .then(response => response.json())
                     .then( data =>{ setSyncUY(data.data)} )
                     .catch(error =>console.error(error))
                     }, [])                 
     const [syncroPY, setSyncPY]= useState([])    
             useEffect (() => {        
-                    fetch("http://192.168.1.57:3034/synclocales")
+                    fetch("http://localhost:3034/synclocales")
                     .then(response => response.json())
                     .then( data =>{ setSyncPY(data.data)} )
                     .catch(error =>console.error(error))
@@ -70,6 +70,7 @@ const loading = <img src={loadingif} className="loading"/>
    
 
     return (
+        <div className='containerMAIN' >
         <div className='container_1'>
         <div className='principal_container'>         
         
@@ -100,7 +101,8 @@ const loading = <img src={loadingif} className="loading"/>
 	
         </div>
 	
-    </div>        
+    </div> 
+    </div>       
     )
 }
 export default Sync;

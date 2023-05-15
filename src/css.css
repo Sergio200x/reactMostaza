@@ -11,10 +11,27 @@ body{
     margin: auto;
     background-color:  whitesmoke ;  
     background-size: 100%;
+    max-width: 100%;
+    background-image: url(../src/images/Mostaza.jpg);
+    max-height: 1080px;
+}
+
+.containerMAIN{
+    margin: auto;     
+    background-size: 100%;
+    max-width: 1024px;   
+    max-height: 1920px;
+}
+
+/*body_apps{
+      
+    margin: auto;
+    background-color:  whitesmoke ;  
+    background-size: 100%;
     max-width: 1024px;
     background-image: url(../src/images/fondo.png);
     max-height: 1920px;
-}
+}*/
 
 ul{
     list-style: none;
@@ -447,11 +464,13 @@ border:1px #072944
 }
 
 .texto{
-    margin-top: 20%;
+    margin-top: 50%;
     color: #072944;
-    background-color: whitesmoke;
-    margin-bottom: 20%;
-    margin-left: 7%;
+    background-color: whitesmoke;    
+    width: 50%;
+    margin: auto;
+    height: 10%;    
+    padding-top: 4%
 }
 .inputs_cont{
     margin-right: 3%
@@ -590,3 +609,126 @@ border:1px #072944
     margin-top: 17%;
 }
 
+.list_container_v_PRECIO
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.container_ul_precios{
+    height: 1080px;
+    overflow: scroll;
+    font-size: smaller; 
+    color: #072944;
+    width:90%;
+    margin-left: 5%;
+}
+
+.item_nombre_hd_PRECIO
+{
+width: 2%;
+}
+.item_nombre_v_local_precios{
+    text-align: start;
+    font-size: 90%;
+
+}
+.item_nombre_hd_PRECIO_nomlocal
+{
+    width: 7%;
+}
+.item_nombre_v_local_precios_nomlocal{
+    text-align: start;
+   
+}
+.item_nombre_hd_PRECIO_desc
+{
+    width: 10%;
+  
+}
+.item_nombre_v_local_precios_desc{
+    text-align: start;
+   
+
+}
+.item_nombre_hd_PRECIO_equipo_desl{
+width: 10%;
+}
+.item_nombre_v_local_precios_desl{
+    text-align: start;
+}
+.item_nombre_hd_PRECIO_caja_fec1{
+width: 3%;
+}
+.item_nombre_v_local_precios_fec1{
+    text-align: start;
+}
+.item_nombre_hd_PRECIO_caja_fec2{
+    width: 3%;
+}
+.item_nombre_v_local_precios_fec2{
+    text-align: start;
+}
+.item_nombre_hd_PRECIO_caja_fec3{
+    width: 3%;
+}
+
+.item_nombre_v_local_precios_fec3{
+    text-align: start;
+
+}
+
+.item_nombre_hd_PRECIO_caja{
+    text-align: start;
+    padding-right: -4%;
+
+}
+.container_Versi_precios{
+    margin: auto;     
+    opacity: 80%;
+    background-color: whitesmoke;
+    background-size: 100%;    
+    max-height: 1080px;
+}
+
+.lista_precios{
+    border-bottom: 1px solid #072944;
+    height:4%;
+}
+.item_nombre_hd_PRECIO_menu{
+    width: 5%;
+}
+.item_nombre_hd_PRECIO_rubro{
+    width: 6%;
+}
+
+.Listado_Columnas
+{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: 8%;
+    font-size: 80%;
+    font-weight: bolder;
+}
+
+.fixed-header-table {
+    overflow-y: auto;
+    max-height: 500px; /* Ajusta la altura máxima del tbody según tus necesidades */
+  }
+  
+  .fixed-header-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: aliceblue;
+    z-index: 1;
+  }
+
+  .texto_relleno{
+    height:150px;
+    text-align: center;
+    margin-top: 10%;
+    opacity: 70%;
+  }

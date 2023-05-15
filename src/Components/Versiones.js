@@ -13,7 +13,7 @@ function Versiones(){
     const [VersionesPRP, setVersionesPRP]= useState([]) 
     const [buscarpr,setbuscarpr]= useState("")   
     const [buscar,setbuscar]= useState("")  
-    const url = "http://192.168.1.57:3037/versiones"
+    const url = "http://localhost:3037/versiones"
     
    
     useEffect (() => {        
@@ -25,7 +25,7 @@ function Versiones(){
 
     const [VersionesFRP, setVersionesFRP]= useState([])    
     useEffect (() => {        
-            fetch("http://192.168.1.57:3035/versiones")
+            fetch("http://localhost:3040/versiones")
             .then(response => response.json())
             .then( data =>{ setVersionesFRP(data.data)} )
             .catch(error =>console.error(error))
@@ -94,6 +94,7 @@ if(buscar.length===0 && buscarpr.length===0)
 
 
 return (
+    <div className='containerMAIN' >
     <div className='container_Versi'>
         <div className='principal_container_Versi'>         
     
@@ -167,6 +168,7 @@ return (
         
 </div>
 
+</div>
 </div>        
 )
 

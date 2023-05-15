@@ -59,6 +59,7 @@ const horas_mesa =[
  
 
     return (
+        <div className='containerMAIN' >
         <div className='container_1'>
         <div className='principal_container'>         
         
@@ -107,7 +108,8 @@ const horas_mesa =[
             </div> 
 
         </div>
-    </div>        
+    </div>  
+    </div>      
     )
 }
 export default App_semana_anterior;

@@ -12,7 +12,7 @@ import loadingif from '../images/loading-32.gif'
 import {Link} from 'react-router-dom'
 
 function App(){
-    const url="http://192.168.1.57:3030/"
+    const url="http://localhost:3030/"
     const [tickets,setTicket]=useState()
    
         const fetchApil= async()=>{
@@ -59,6 +59,7 @@ const horas_mesa =[
  
 
     return (
+        <div className='containerMAIN' >
         <div className='container_1'>
         <div className='principal_container'>         
         
@@ -130,7 +131,10 @@ const horas_mesa =[
                 <Link to="/LOG_SPACE"  className='volverlink'>Espacio LOG BBDD</Link>
                     </h2>  
                     <h2 className='volver'>
-                <Link to="/ListadoDeApps"  className='volverlink'>Versiones</Link>
+                <Link to="/Versiones"  className='volverlink'>Versiones</Link>
+                    </h2>
+                    <h2 className='volver'>
+                <Link to="/precios"  className='volverlink'>Precios y Art.</Link>
                     </h2>                     
                 </div>       
             </div> 
@@ -139,6 +143,7 @@ const horas_mesa =[
 	<div>
 			
 	</div>
+    </div>
     </div>        
     )
 }
