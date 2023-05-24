@@ -3,34 +3,65 @@ import '../App.js'
 import '../../src/css.css'
 import loadingif from '../images/loading-32.gif'
 import {Link} from 'react-router-dom'
-import Select from 'react-select'
+import { useMemo } from "react";
+import Select from 'react-select';
+import { useTable } from 'react-table'
 //import makeAnimated from 'react-select/animated'
 
 
 
 function Versiones(){
-    
+   
     const [VersionesPRP, setVersionesPRP]= useState([]) 
     const [buscarpr,setbuscarpr]= useState("")   
     const [buscar,setbuscar]= useState("")  
-    const url = "http://localhost:3037/versiones"
-    
+    const [parametro, setParametro] = useState('');
+    const [enviarParametro, setEnviarParametro] = useState(false);
    
-    useEffect (() => {        
-            fetch(url)
+    
+    const parametro2 = parametro.trim()
+    const url = 
+    useEffect (() => {  
+        if (enviarParametro && parametro.length !== 0 && parametro.trim() !== '' && parametro !== 'NULL') {
+            const parametro2 = parametro.trim()
+              
+            fetch(`http://10.0.1.7:3035/versiones?parametro2=${parametro2}`)
             .then(response => response.json())
             .then( data =>{ setVersionesPRP(data.data)} )
             .catch(error =>console.error(error))
-            }, []) 
+            setEnviarParametro(false);
+        }
 
-    const [VersionesFRP, setVersionesFRP]= useState([])    
+            },[enviarParametro, parametro]) 
+
+   /* const [VersionesFRP, setVersionesFRP]= useState([])    
     useEffect (() => {        
             fetch("http://localhost:3040/versiones")
             .then(response => response.json())
             .then( data =>{ setVersionesFRP(data.data)} )
             .catch(error =>console.error(error))
             }, [])               
-      
+      */
+            let listadoapps=[
+                {label:"Actualizadatos", value:"Actualizadatos"},
+                {label:"AppMtz", value:"PanelMTZ|VERSION"},
+                {label:"Centralizador", value:"Centralizador"},
+                {label:"CentralizadorComanda", value:"CentralizadorComanda|Version"},
+                {label:"DescargaLocal", value:"DescargaLocal|VERSION"},
+                {label:"DualpointCaja", value:"ZonaEntrega|Version"},
+                {label:"Dualpointllamador", value:"ZonaLlamador|Version"},
+                {label:"Informes", value:"Informes"},
+                {label:"Meli", value:"PanelMELI|VERSION"},
+                {label:"OCX", value:"CFOCXVERSI"},
+                {label:"PantallaComanda", value:"PantallaComanda"},
+                {label:"Peya", value:"PanelPedidosYa|VERSION"},
+                {label:"Profit", value:"VERSION"},
+                {label:"Rappi", value:"PanelRappi"},
+                {label:"totem.exe", value:"VERSIONT"}]
+
+
+
+
 const buscador = (version)=>{
     setbuscar(version.target.value)
 }
@@ -39,82 +70,114 @@ const buscadorp = (buscarpp)=>{
 }
 
 const buscadorselect = (select)=>{
-    setbuscarpr(select.value)  
+    setParametro(select.value)  
+    setEnviarParametro(false);
 }
+
+/*const parametro_capturar = (parametro)=>{
+    setParametro(select.value)  
+}*/
+
 
 
 let versiones=[]
-if(VersionesPRP.length>0||VersionesFRP.length>0)
+if(VersionesPRP.length>0/*||VersionesFRP.length>0*/)
 {
-    versiones.push(VersionesPRP)
-    
-    versiones.push(VersionesFRP)
+    VersionesPRP.map(propios => {
+        versiones.push(propios)
+    }  )
+   // versiones.push(VersionesFRP)
     
 }
 
+
+
+
 let resultado=[]
-var contador=0
-if(buscar.length===0 && buscarpr.length===0)
+
+if(buscar.length===0)
     {
-        resultado=[]
-        
+        resultado=versiones
+        console.log("estoy en el if")
     }
-    else if (buscarpr.length===0 && buscar.length!==0){
-        resultado=[]
-    }
-    else if (buscarpr.length!==0 && buscar.length===0)
-    {
-      
-    }
-    else{
-        resultado=versiones.map((vers)=> 
-        vers.filter((dato,i)=>       
-        dato.Nro_version.toLowerCase()!==(buscar.toLocaleLowerCase())&& dato.Parametro.toLowerCase()===(buscarpr.toLocaleLowerCase())) 
-        )    
-       
-    }
-    let listadoapps=[
-        {label:"Actualizadatos", value:"Actualizadatos"},
-        {label:"AppMtz", value:"AppMtz"},
-        {label:"Centralizador", value:"Centralizador"},
-        {label:"CentralizadorComanda", value:"Cent. Comanda"},
-        {label:"DescargaLocal", value:"DescargaLocal"},
-        {label:"DualpointCaja", value:"DualpointCaja"},
-        {label:"Dualpointllamador", value:"Dp. llamador"},
-        {label:"Informes", value:"Informes"},
-        {label:"Meli", value:"Meli"},
-        {label:"OCX", value:"OCX"},
-        {label:"PantallaComanda", value:"P. Comanda"},
-        {label:"Peya", value:"Peya"},
-        {label:"Profit", value:"Profit"},
-        {label:"Rappi", value:"Rappi"},
-        {label:"totem.exe", value:"totem.exe"}]
+
+else {
+    resultado = versiones.filter((vers) =>
+    !vers.Nro_version.toLowerCase().includes(buscar.toLowerCase())
+  );
+    
+}
+
+const columns = React.useMemo(
+        () => [
+          {
+            Header: "Codigo de Local",
+            accessor: "Codigo_Local"
+          },
+          {
+            Header: "Nombre",
+            accessor: "Nombre_local"
+          },
+          {
+              Header: "Aplicacion",
+              accessor: "Parametro"
+          },
+          {
+              Header: "Version",
+              accessor: "Nro_version"
+          },
+          {
+              Header: "Fecha de log",
+              accessor: "FechaTrans"
+          },
+          {
+              Header: "Nº de caja",
+              accessor: "Caja"
+          },
+          {
+              Header: "Nombre de Equipo",
+              accessor: "EQUIPO"
+          },
+          
+        ],
+        []
+      );
+
+    const data = React.useMemo(
+        () => resultado,
+        [resultado]
+      )  
 
 
+      const tableInstance = useTable({ columns, data })
+           
+      const {
+          getTableProps,
+          getTableBodyProps,
+          headerGroups,
+          rows,
+          prepareRow,
+        } = tableInstance
+  
 
+    
+
+
+    
 
 return (
     <div className='containerMAIN' >
-    <div className='container_Versi'>
-        <div className='principal_container_Versi'>         
-    
-        <h2 className='titulo_Versi'>DashBoard Cinet</h2>
-        <div className='container_Versi'>
-            
-        <div className='inputs_Versi'>
-        
-        <div className='inputs_cont_Versi'>
-              <Select
-              options={listadoapps}
-              onChange={buscadorselect}
-              defaultValue={{label:"Aplicativos", value:"Aplicativos"}}
-              
-              />
-             </div> 
-            
-              
-           
-            <div className='inputs_cont_Versi'>
+        <div className='principal_container_Versi_precios'></div>
+        <div className='container_Versi_precios '>
+            <div className='inputsVersiones'>
+               <div className='inputsVersiones_hijo'>
+                        <Select
+                        options={listadoapps}
+                        onChange={buscadorselect}
+                        defaultValue={{label:"Aplicativos", value:"Aplicativos"}}
+                        />
+                        </div>           
+            <div className='inputsVersiones_hijo'>
             <input 
                     type="text"
                     value={buscar}
@@ -122,39 +185,70 @@ return (
                     onChange={buscador}
                 />        
             </div>
+            <div>
+              <button onClick={() => setEnviarParametro(true)} className='boton'>Consultar</button>
+              </div>
             </div>
-            <div className='titulos_Versi'>
-            <div className='titulo_numeros_individual_Versi'><h4 className='h4_titulo_Versi'>Local</h4></div>            
-            <div className='titulo_numeros_individual_Versi_nomlocal'><h4 className='h4_titulo_Versi'> Nombre del local</h4></div>
-            <div className='titulo_numeros_individual_Versi_app'><h4 className='h4_titulo_Versi'>App</h4></div>
-            <div className='titulo_numeros_individual_Versi_nro'><h4 className='h4_titulo_Versi'>Nro de Version</h4></div>
-            <div className='titulo_numeros_individual_Versi_fecha'><h4 className='h4_titulo_Versi'>Fecha</h4></div>
-            <div className='titulo_numeros_individual_Versi_equipo'><h4 className='h4_titulo_Versi'>Equipo</h4></div>
-            <div className='titulo_numeros_individual_Versi_caja'><h4 className='h4_titulo_Versi'>Caja/Nro equipo</h4></div>        
-           
-            </div>
-           
-               <div className='container_ul'> 
-        {resultado.length===0? <div className='texto'>
-        <h2><strong> Por favor Complete la Version y el aplicativo a Buscar</strong></h2>
-        </div>:resultado.map((lista,i)=>{
-         return  lista.map((list,i)=>{
-            return <ul key={i}  > 
-              <div className='list_container_v_Versi'> 
-             <div className='item_nombre_hd_Versi_clocal'><li className='item_nombre_v_local_Versi'><strong>{list.Codigo_Local}</strong></li></div>
-              <div className='item_nombre_hd_Versi_nomlocal'><li className='item_nombre_v_local_Versi'><strong>{list.Nombre_local}</strong></li></div>
-              <div className='item_nombre_hd_Versi'><li className='item_nombre_v_local_Versi'><strong>{list.Parametro}</strong></li></div>
-              <div className='item_nombre_hd_Versi_nro'><li className='item_nombre_v_local_Versi'><strong>{list.Nro_version}</strong></li></div>
-              <div className='item_nombre_hd_Versi'><li className='item_nombre_v_local_Versi'><strong>{list.FechaTrans}</strong></li></div>
-              <div className='item_nombre_hd_Versi_equipo'><li className='item_nombre_v_local_Versi'><strong>{list.EQUIPO}</strong></li></div>
-              <div className='item_nombre_hd_Versi_caja'><li className='item_nombre_v_local_Versi'><strong>{list.Caja}</strong></li></div>      
-              </div>   
-            </ul>
-         })
-         
-            })}
-            </div>
-           
+          
+               <div className='container_ul_versiones'> 
+               <br></br>
+        {resultado.length===0? <div className='texto_relleno'>
+        <h2><strong> Por favor complete la version y el aplicativo a buscar</strong></h2>
+        </div>:<div className='fixed-header-table'>
+        <table {...getTableProps()} style={{ border: 'solid 1px black'}}>
+       <thead>
+         {headerGroups.map(headerGroup => (
+           <tr {...headerGroup.getHeaderGroupProps()}>
+             {headerGroup.headers.map(column => (
+               <th
+                 {...column.getHeaderProps()}
+                 style={{
+                   borderBottom: 'solid 3px red',
+                   background: 'Red',
+                   color: 'white',
+                   fontWeight: 'bold',
+                   fontSize:'80%',
+                   padding:'3px'
+                 }}
+               >
+                 {column.render('Header')}
+               </th>
+             ))}
+           </tr>
+         ))}
+       </thead>
+       
+       <tbody {...getTableBodyProps()} >
+         {rows.map(row => {
+           prepareRow(row)
+           return (
+             <tr {...row.getRowProps()}>
+               {row.cells.map(cell => {
+                 return (
+                   <td
+                     {...cell.getCellProps()}
+                     style={{
+                       padding: '10px',
+                        border: 'solid 1px gray',
+                       background: 'whitesmoke',
+                       fontSize:'60%',
+                       fontWeight:'bolder'
+                     }}
+                   >
+                     {cell.render('Cell')}
+                   </td>
+                 )
+               })}
+             </tr>
+           )
+         })}
+       </tbody>
+       
+     </table>
+     </div>
+   }      
+            
+            </div>    
             <div className='container_volver'>                           
             <h2 className='volver'>
                 <Link to="/"  className='volverlink_sync'>Volver al Dash Principal</Link>
@@ -162,14 +256,10 @@ return (
             </div>       
         </div> 
 
-    </div>
+        </div>
     
-<div>
-        
-</div>
 
-</div>
-</div>        
+       
 )
 
    

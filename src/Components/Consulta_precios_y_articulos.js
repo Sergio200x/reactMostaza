@@ -11,6 +11,7 @@ import { useTable } from 'react-table'
 
 function PreciosYarticulos() {
   const [VersionesPRP, setVersionesPRP] = useState([]);
+  const [VersioneGMG, setVersionesGMG] = useState([]);
   const [descripcion, setDescripcion] = useState('');
   const [local, setLocal] = useState('');
   const [enviarParametro, setEnviarParametro] = useState(false);
@@ -20,7 +21,7 @@ function PreciosYarticulos() {
       const parametro = descripcion.trim();
       const parametro1 = local.trim();
 
-      fetch(`http://localhost:3039/versiones?parametro=${parametro}&parametro1=${parametro1}`)
+      fetch(`http://10.0.1.7:3035/preciosyarts?parametro=${parametro}&parametro1=${parametro1}`)
         .then(response => response.json())
         .then(data => {
           setVersionesPRP(data.data);
@@ -30,6 +31,9 @@ function PreciosYarticulos() {
       setEnviarParametro(false); // Reiniciar el estado de enviarParametro
     }
   }, [enviarParametro, local,descripcion]);
+  
+
+
 
   const buscador = descripcion => {
     setDescripcion(descripcion.target.value);
@@ -166,7 +170,7 @@ function PreciosYarticulos() {
 return (
     <div className='container_Versi_precios'>
       <div className='principal_container_Versi_precios'>
-        <h2 className='titulo_Versi'>DashBoard Mostaza</h2>
+        <h2 className='titulo_Versi'></h2>
         <div className='container_Versi_precios '>
           <div className='inputs_Versi'>
             <div className='inputs_cont_Versi'>
@@ -184,14 +188,17 @@ return (
                 placeholder='Codigo de local'
                 onChange={buscador1}
               />
+              <div>
+              <button onClick={() => setEnviarParametro(true)} className='boton'>Consultar</button>
+              </div>
             </div>
-            <button onClick={() => setEnviarParametro(true)}>Consultar</button>
+            
           </div>
         <br></br>
        {resultado.length===0?
         <div className='texto_relleno'><h2><strong> Por favor complete la descripcion y el local a Buscar</strong></h2></div>:
         <div className='fixed-header-table'>
-        <table {...getTableProps()} style={{ border: 'solid 1px blue'}}>
+        <table {...getTableProps()} style={{ border: 'solid 1px black'}}>
        <thead>
          {headerGroups.map(headerGroup => (
            <tr {...headerGroup.getHeaderGroupProps()}>
@@ -204,6 +211,7 @@ return (
                    color: 'white',
                    fontWeight: 'bold',
                    fontSize:'80%',
+                   padding:'2px'
                  }}
                >
                  {column.render('Header')}
@@ -224,9 +232,9 @@ return (
                      {...cell.getCellProps()}
                      style={{
                        padding: '10px',
-                       border: 'solid 1px gray',
+                        border: 'solid 1px gray',
                        background: 'whitesmoke',
-                       fontSize:'65%',
+                       fontSize:'60%',
                        fontWeight:'bolder'
                      }}
                    >

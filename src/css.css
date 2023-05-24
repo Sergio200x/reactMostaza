@@ -57,7 +57,7 @@ ul{
 { position: relative; 
     width: 97%;
     border: 3px outset #286698;
-    border-radius: 2% 30%;
+    border-radius: 1%;
     margin:auto;
     margin-top: 8%;     
     opacity: 90%;
@@ -284,10 +284,9 @@ display: block;
 }
 
 .container_volver{
-    display: flex;
-    margin-bottom: -4%;
+    display: flex;   
     margin-top: -4%;
-    margin-left: 10%;
+    margin-left: 5%;
     width: 85%;
 }
 
@@ -509,14 +508,26 @@ border:1px #072944
 }
 
 .inputs_cont_Versi{
-    margin-left: 4%;
-   
+    display: flex;
+    margin-left: -4%;   
     width: 22%;
+    margin-top: 2%;
+    margin-right: 3%;
+ 
 }
 .item_nombre_hd_Versi{
     width: 11%;
 }
 
+.boton{
+height: 50px;
+font-weight: bolder;
+}
+
+.boton:hover{
+    background-color: #072944;
+    color: whitesmoke;
+}
 
 
 .item_nombre_hd_Versi_clocal{
@@ -530,6 +541,8 @@ border:1px #072944
 }
 .inputs_Versi{
     display: flex;
+    margin-left: 3.5%;
+    
 
 }
 .titulo_numeros_individual_Versi{
@@ -544,6 +557,21 @@ border:1px #072944
     width: 940px;
     
 }
+.container_ul_versiones{
+    height: 472px;
+    overflow: scroll;
+    font-size: smaller;    
+    color: #072944;
+    margin-top: 2%;
+    font-size: 20px;
+    margin-left: 9%;
+    text-align: center;
+    justify-content: center;
+    z-index: 0;
+   
+}
+
+
 
 ::-webkit-scrollbar {
     display: none;
@@ -624,74 +652,46 @@ border:1px #072944
     color: #072944;
     width:90%;
     margin-left: 5%;
-}
-
-.item_nombre_hd_PRECIO
-{
-width: 2%;
-}
-.item_nombre_v_local_precios{
-    text-align: start;
-    font-size: 90%;
-
-}
-.item_nombre_hd_PRECIO_nomlocal
-{
-    width: 7%;
-}
-.item_nombre_v_local_precios_nomlocal{
-    text-align: start;
    
 }
-.item_nombre_hd_PRECIO_desc
-{
-    width: 10%;
-  
-}
-.item_nombre_v_local_precios_desc{
-    text-align: start;
-   
 
-}
-.item_nombre_hd_PRECIO_equipo_desl{
-width: 10%;
-}
-.item_nombre_v_local_precios_desl{
-    text-align: start;
-}
-.item_nombre_hd_PRECIO_caja_fec1{
-width: 3%;
-}
-.item_nombre_v_local_precios_fec1{
-    text-align: start;
-}
-.item_nombre_hd_PRECIO_caja_fec2{
-    width: 3%;
-}
-.item_nombre_v_local_precios_fec2{
-    text-align: start;
-}
-.item_nombre_hd_PRECIO_caja_fec3{
-    width: 3%;
-}
 
-.item_nombre_v_local_precios_fec3{
-    text-align: start;
 
-}
 
-.item_nombre_hd_PRECIO_caja{
-    text-align: start;
-    padding-right: -4%;
-
-}
 .container_Versi_precios{
     margin: auto;     
-    opacity: 80%;
+    opacity: 70%;
     background-color: whitesmoke;
     background-size: 100%;    
     max-height: 1080px;
+    transition: all 450ms ; 
+    animation-name: opacidad;   
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    width: 95%;
+
+    
 }
+.container_Versi_precios:hover{
+opacity: 95%;
+
+
+
+}
+
+/*@keyframes opacidad {
+    
+    25%  {opacity: 75%}
+    50% {opacity: 85%}
+    70% {opacity: 100%}
+    90% {opacity: 85%}
+    100% {opacity: 75%}
+    
+  
+  }
+*/
+
+
 
 .lista_precios{
     border-bottom: 1px solid #072944;
@@ -708,15 +708,16 @@ width: 3%;
 {
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 95%;
     margin-left: 8%;
-    font-size: 80%;
+    font-size: 100%;
     font-weight: bolder;
 }
 
 .fixed-header-table {
     overflow-y: auto;
-    max-height: 500px; /* Ajusta la altura máxima del tbody según tus necesidades */
+    max-height: 700px; /* Ajusta la altura máxima del tbody según tus necesidades */
+    width: 100%;
   }
   
   .fixed-header-table thead th {
@@ -731,4 +732,40 @@ width: 3%;
     text-align: center;
     margin-top: 10%;
     opacity: 70%;
+  }
+
+  .principal_container_Versi_precios{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .versiones_container{
+    background-color: whitesmoke;
+    margin-top: 10%;
+    height: 600px;
+  }
+
+  .inputsVersiones{
+    display: flex;
+    margin-left: 5%;
+  }
+
+  .inputsVersiones_hijo{
+    margin-top: 2%;
+    margin-right: 2%;
+    height: 20px;
+    font-size: 20px;
+    width: 30%;
+    z-index: 5;
+  }
+
+  .texto_versiones{
+    margin-top: 25%;
+    margin-left: 12%;
+   
+  }
+ 
+  .select{
+    z-index: 5;
   }
