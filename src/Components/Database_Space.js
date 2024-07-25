@@ -13,7 +13,7 @@ function Database_Space(){
     
     const [DATABASE_SPACE, setDATABASE_SPACE]= useState([])    
     useEffect (() => {        
-            fetch("http://localhost:3036/DATABASE_SPACE")
+            fetch(`${process.env.REACT_APP_API_PROPIOS_FRANQUICIAS}/db_spaceprp`)
             .then(response => response.json())
             .then( data =>{ setDATABASE_SPACE(data.data)} )
             .catch(error =>console.error(error))
@@ -21,7 +21,7 @@ function Database_Space(){
 
      const [DATABASE_SPACEfrq, setDATABASE_SPACEfrq]= useState([])    
     useEffect (() => {        
-            fetch("http://localhost:3035/DATABASE_SPACE")
+            fetch(`${process.env.REACT_APP_API_PROPIOS_FRANQUICIAS}/db_spacepr`)
             .then(response => response.json())
             .then( data =>{ setDATABASE_SPACEfrq(data.data)} )
             .catch(error =>console.error(error))
@@ -38,7 +38,7 @@ function Database_Space(){
                 
             }
             else{
-                database_locales.push("No hay Datos")               
+                console.log("No hay Datos")               
             } 
 
     
@@ -59,7 +59,7 @@ const loading = <img src={loadingif} className="loading"/>
         <div className='container_1'>
         <div className='principal_container'>         
         
-            <h2 className='titulo'>DashBoard Cinet</h2>
+            <h2 className='titulodash'>DashBoard Mostaza</h2>
             <div className='container_hd'>
             <div className='titulos_hd'>
                 <div className='titulo_nombre_hd'><h4>Local</h4></div>
@@ -69,7 +69,8 @@ const loading = <img src={loadingif} className="loading"/>
                 <div className='titulo_nombre_hd'><h4>Nombre Equipo</h4></div>  
                 <div className='titulo_nombre_hd'><h4>Numero de Caja</h4></div>           
             </div>
-                {Array.from(database_locales).map(function(database_local,i){ 
+            <div className='overflow'>
+                {Array.from(database_locales).length===0?loading:Array.from(database_locales).map(function(database_local,i){ 
                     return      (
                     Array.from(database_local).map(function(database_local1,i){                   
                     return <ul key={i} >                                            
@@ -83,8 +84,9 @@ const loading = <img src={loadingif} className="loading"/>
                         </div>
                     </ul>
                 })    )
-            })}                      
-              <h2 className='volver'>
+                
+            })}  </div>                    
+              <h2 className='volver ocultar'>
                 <Link to="/"  className='volverlink_sync'>Volver al Dash Principal</Link>
                     </h2>            
                         

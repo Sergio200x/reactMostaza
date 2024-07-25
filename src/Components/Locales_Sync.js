@@ -14,21 +14,21 @@ function Sync(){
     
     const [syncro, setSync]= useState([])    
     useEffect (() => {        
-            fetch("http://localhost:3039/synclocales")
+            fetch("http://localhost:3035/sync")
             .then(response => response.json())
             .then( data =>{ setSync(data.data)} )
             .catch(error =>console.error(error))
             }, [])    
     const [syncroGMG, setSyncGMG]= useState([])    
             useEffect (() => {        
-                    fetch("http://localhost:3032/synclocales")
+                    fetch("http://localhost:3036/sync")
                     .then(response => response.json())
                     .then( data =>{ setSyncGMG(data.data)} )
                     .catch(error =>console.error(error))
                     }, []) 
     const [syncroUY, setSyncUY]= useState([])    
             useEffect (() => {        
-                    fetch("http:/localhost:3033/synclocales")
+                    fetch("http:/localhost:3037/sync")
                     .then(response => response.json())
                     .then( data =>{ setSyncUY(data.data)} )
                     .catch(error =>console.error(error))
@@ -74,7 +74,7 @@ const loading = <img src={loadingif} className="loading"/>
         <div className='container_1'>
         <div className='principal_container'>         
         
-            <h2 className='titulo'>DashBoard Cinet</h2>
+            <h2 className='titulo'>DashBoard Mostaza</h2>
             <div className='container_syncro'>
             <div className='titulos_syncro'>
                 <div className='titulo_Nombre_Syncro'><h4>Local</h4></div>

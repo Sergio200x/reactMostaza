@@ -14,14 +14,14 @@ function Log_Space(){
     
     const [log_SPACE, setlog_SPACE]= useState([])    
     useEffect (() => {        
-            fetch("http://localhost:3036/LOG_SPACE")
+            fetch("http://10.0.1.109:3036/LOG_SPACE")
             .then(response => response.json())
             .then( data =>{ setlog_SPACE(data.data)} )
             .catch(error =>console.error(error))
             }, [])
     const [log_SPACEfrq, setlog_SPACEfrq]= useState([])    
     useEffect (() => {        
-            fetch("http://localhost:3035/LOG_SPACE")
+            fetch("http://10.0.1.109:3035/LOG_SPACE")
             .then(response => response.json())
             .then( data =>{ setlog_SPACEfrq(data.data)} )
             .catch(error =>console.error(error))

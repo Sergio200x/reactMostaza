@@ -11,17 +11,21 @@ import { useTable } from 'react-table'
 
 function PreciosYarticulos() {
   const [VersionesPRP, setVersionesPRP] = useState([]);
+  const [VersionesPRP_UY, setVersionesPRP_UY] = useState([]);
   const [VersioneGMG, setVersionesGMG] = useState([]);
+  const [VersionesFRP, setVersionesFRP]= useState([]);
+  const [VersionesFRP_UY, setVersionesFRP_UY]= useState([]) 
+  const [VersionesPY, setVersionesPY]= useState([])   
   const [descripcion, setDescripcion] = useState('');
   const [local, setLocal] = useState('');
   const [enviarParametro, setEnviarParametro] = useState(false);
 
   useEffect(() => {
     if (enviarParametro && descripcion.length !== 0 && descripcion.trim() !== '' && descripcion !== 'NULL') {
-      const parametro = descripcion.trim();
-      const parametro1 = local.trim();
+      const parametro = encodeURIComponent(descripcion.trim())
+      const parametro1 = encodeURIComponent(local.trim());
 
-      fetch(`http://10.0.1.7:3035/preciosyarts?parametro=${parametro}&parametro1=${parametro1}`)
+      fetch(`${process.env.REACT_APP_API_PROPIOS_FRANQUICIAS}/preciosyarts?parametro=${parametro}&parametro1=${parametro1}`)
         .then(response => response.json())
         .then(data => {
           setVersionesPRP(data.data);
@@ -32,8 +36,86 @@ function PreciosYarticulos() {
     }
   }, [enviarParametro, local,descripcion]);
   
+useEffect(() => {
+    if (enviarParametro && descripcion.length !== 0 && descripcion.trim() !== '' && descripcion !== 'NULL') {
+      const parametro = encodeURIComponent(descripcion.trim())
+      const parametro1 = encodeURIComponent(local.trim());
+
+      fetch(`${process.env.REACT_APP_API_URUGUAYPROPIOS_FRANQUICIAS}/preciosyarts?parametro=${parametro}&parametro1=${parametro1}`)
+        .then(response => response.json())
+        .then(data => {
+          setVersionesPRP_UY(data.data);
+        })
+        .catch(error => console.error(error));
+
+      setEnviarParametro(false); // Reiniciar el estado de enviarParametro
+    }
+  }, [enviarParametro, local,descripcion]);
+ 
+  useEffect(() => {
+    if (enviarParametro && descripcion.length !== 0 && descripcion.trim() !== '' && descripcion !== 'NULL') {
+      const parametro = encodeURIComponent(descripcion.trim())
+      const parametro1 = encodeURIComponent(local.trim());
+
+      fetch(`${process.env.REACT_APP_API_PROPIOS_FRANQUICIAS}/preciosyarts_frq?parametro=${parametro}&parametro1=${parametro1}`)
+        .then(response => response.json())
+        .then(data => {
+          setVersionesFRP(data.data);
+        })
+        .catch(error => console.error(error));
+
+      setEnviarParametro(false); // Reiniciar el estado de enviarParametro
+    }
+  }, [enviarParametro, local,descripcion]);
+
+useEffect(() => {
+    if (enviarParametro && descripcion.length !== 0 && descripcion.trim() !== '' && descripcion !== 'NULL') {
+      const parametro = encodeURIComponent(descripcion.trim())
+      const parametro1 = encodeURIComponent(local.trim());
+
+      fetch(`${process.env.REACT_APP_API_URUGUAYPROPIOS_FRANQUICIAS}/preciosyarts_frq?parametro=${parametro}&parametro1=${parametro1}`)
+        .then(response => response.json())
+        .then(data => {
+          setVersionesFRP_UY(data.data);
+        })
+        .catch(error => console.error(error));
+
+      setEnviarParametro(false); // Reiniciar el estado de enviarParametro
+    }
+  }, [enviarParametro, local,descripcion]);
 
 
+
+  useEffect(() => {
+    if (enviarParametro && descripcion.length !== 0 && descripcion.trim() !== '' && descripcion !== 'NULL') {
+      const parametro = encodeURIComponent(descripcion.trim());
+      const parametro1 = encodeURIComponent(local.trim());
+      fetch(`${process.env.REACT_APP_API_GMG}/preciosyarts?parametro=${parametro}&parametro1=${parametro1}`)
+        .then(response => response.json())
+        .then(data => {
+          setVersionesGMG(data.data);
+        })
+        .catch(error => console.error(error));
+
+      setEnviarParametro(false); // Reiniciar el estado de enviarParametro
+    }
+  }, [enviarParametro, local,descripcion]);
+
+  useEffect(() => {
+    if (enviarParametro && descripcion.length !== 0 && descripcion.trim() !== '' && descripcion !== 'NULL') {
+      const parametro = encodeURIComponent(descripcion.trim());
+      const parametro1 = encodeURIComponent(local.trim());
+      fetch(`${process.env.REACT_APP_API_PARAGUAY}/preciosyarts?parametro=${parametro}&parametro1=${parametro1}`)
+        .then(response => response.json())
+        .then(data => {
+          setVersionesPY(data.data);
+        })
+        .catch(error => console.error(error));
+
+      setEnviarParametro(false); // Reiniciar el estado de enviarParametro
+    }
+  }, [enviarParametro, local,descripcion]);
+  
 
   const buscador = descripcion => {
     setDescripcion(descripcion.target.value);
@@ -44,7 +126,44 @@ function PreciosYarticulos() {
     setEnviarParametro(false);
   };
 
-  const resultado = VersionesPRP;
+  let versiones=[]
+  if(VersionesPRP.length>0 ||VersionesFRP.length>0 || VersioneGMG.length>0 ||VersionesPRP_UY.length>0 || VersionesFRP_UY.length>0 || VersionesPY.length>0 )
+  {
+      VersionesPRP.map(propios => {
+          versiones.push(propios)
+      }  )
+      VersionesFRP.map(franquicias => {
+        versiones.push(franquicias)
+    }  )
+     VersioneGMG.map(propios => {
+          versiones.push(propios)
+      }  )
+	VersionesFRP_UY.map(FRQ_UY => {
+          versiones.push(FRQ_UY)
+      }  )
+	VersionesPRP_UY.map(PRP_UY => {
+          versiones.push(PRP_UY)
+      }  )
+      
+	VersionesPY.map(PRP_PY => {
+    versiones.push(PRP_PY)
+}  )
+      
+  }
+  
+  
+  
+  
+  let resultado=[]
+  
+  if(enviarParametro.length!=0)
+      {
+          resultado=versiones
+          console.log("estoy en el if")
+      }
+  
+  
+  
 
   const data = React.useMemo(
     () => resultado,
@@ -143,6 +262,10 @@ function PreciosYarticulos() {
         {
           Header: "En Botonera",
           accessor: "EN_BOTONERA"
+        },
+ 	{
+          Header: "Marcha",
+          accessor: "Marcha"
         }
         ,
         {
@@ -170,7 +293,7 @@ function PreciosYarticulos() {
 return (
     <div className='container_Versi_precios'>
       <div className='principal_container_Versi_precios'>
-        <h2 className='titulo_Versi'></h2>
+        <h2 className='titulodash'>Articulos y Precios</h2>
         <div className='container_Versi_precios '>
           <div className='inputs_Versi'>
             <div className='inputs_cont_Versi'>
@@ -188,15 +311,15 @@ return (
                 placeholder='Codigo de local'
                 onChange={buscador1}
               />
-              <div>
+              
+            </div>
+            <div>
               <button onClick={() => setEnviarParametro(true)} className='boton'>Consultar</button>
               </div>
-            </div>
-            
           </div>
         <br></br>
        {resultado.length===0?
-        <div className='texto_relleno'><h2><strong> Por favor complete la descripcion y el local a Buscar</strong></h2></div>:
+        <div className='texto_relleno'><h2><strong> Por favor complete la descripcion del producto y el local a Buscar</strong></h2></div>:
         <div className='fixed-header-table'>
         <table {...getTableProps()} style={{ border: 'solid 1px black'}}>
        <thead>
@@ -248,15 +371,15 @@ return (
        </tbody>
        
      </table>
-     </div>
-   }      
-          
-           
-            <div className='container_volver'>                           
+     <div className='container_volver'>                           
             <h2 className='volver'>
                 <Link to="/"  className='volverlink_sync'>Volver al Dash Principal</Link>
                     </h2> 
-            </div>       
+            </div> 
+     </div>
+   }      
+          
+                
         </div> 
 
     </div>

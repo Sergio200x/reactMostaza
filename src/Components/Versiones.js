@@ -18,14 +18,14 @@ function Versiones(){
     const [parametro, setParametro] = useState('');
     const [enviarParametro, setEnviarParametro] = useState(false);
    
-    
-    const parametro2 = parametro.trim()
+
+    const parametro2 = encodeURIComponent(parametro.trim());
     const url = 
     useEffect (() => {  
         if (enviarParametro && parametro.length !== 0 && parametro.trim() !== '' && parametro !== 'NULL') {
-            const parametro2 = parametro.trim()
+            const parametro2 = encodeURIComponent(parametro.trim());
               
-            fetch(`http://10.0.1.7:3035/versiones?parametro2=${parametro2}`)
+            fetch(`http://localhost:3035/versiones?parametro2=${parametro2}`)
             .then(response => response.json())
             .then( data =>{ setVersionesPRP(data.data)} )
             .catch(error =>console.error(error))
@@ -34,14 +34,62 @@ function Versiones(){
 
             },[enviarParametro, parametro]) 
 
-   /* const [VersionesFRP, setVersionesFRP]= useState([])    
-    useEffect (() => {        
-            fetch("http://localhost:3040/versiones")
-            .then(response => response.json())
-            .then( data =>{ setVersionesFRP(data.data)} )
-            .catch(error =>console.error(error))
-            }, [])               
-      */
+    const [VersionesFRP, setVersionesFRP]= useState([])    
+    useEffect (() => {  
+      if (enviarParametro && parametro.length !== 0 && parametro.trim() !== '' && parametro !== 'NULL') {
+          const parametro2 = encodeURIComponent(parametro.trim());
+            
+          fetch(`http://localhost:3035/versiones_frq?parametro2=${parametro2}`)
+          .then(response => response.json())
+          .then( data =>{ setVersionesFRP(data.data)} )
+          .catch(error =>console.error(error))
+          setEnviarParametro(false);
+      }
+
+          },[enviarParametro, parametro])  
+
+const [VersionesGMG, setVersionesGMG]= useState([])    
+    useEffect (() => {  
+      if (enviarParametro && parametro.length !== 0 && parametro.trim() !== '' && parametro !== 'NULL') {
+          const parametro2 = encodeURIComponent(parametro.trim());
+            
+          fetch(`http://localhost:3036/versiones?parametro2=${parametro2}`)
+          .then(response => response.json())
+          .then( data =>{ setVersionesGMG(data.data)} )
+          .catch(error =>console.error(error))
+          setEnviarParametro(false);
+      }
+
+          },[enviarParametro, parametro])   
+
+    const [VersionesFRP_UY, setVersionesFRP_UY]= useState([])    
+    useEffect (() => {  
+      if (enviarParametro && parametro.length !== 0 && parametro.trim() !== '' && parametro !== 'NULL') {
+          const parametro2 = encodeURIComponent(parametro.trim());
+            
+          fetch(`http://localhost:3037/versiones_frq?parametro2=${parametro2}`)
+          .then(response => response.json())
+          .then( data =>{ setVersionesFRP_UY(data.data)} )
+          .catch(error =>console.error(error))
+          setEnviarParametro(false);
+      }
+
+          },[enviarParametro, parametro])   
+
+const [VersionesPRP_UY, setVersionesPRP_UY]= useState([])    
+    useEffect (() => {  
+      if (enviarParametro && parametro.length !== 0 && parametro.trim() !== '' && parametro !== 'NULL') {
+          const parametro2 = encodeURIComponent(parametro.trim());
+            
+          fetch(`http://localhost:3037/versiones?parametro2=${parametro2}`)
+          .then(response => response.json())
+          .then( data =>{ setVersionesPRP_UY(data.data)} )
+          .catch(error =>console.error(error))
+          setEnviarParametro(false);
+      }
+
+          },[enviarParametro, parametro])           
+    
             let listadoapps=[
                 {label:"Actualizadatos", value:"Actualizadatos"},
                 {label:"AppMtz", value:"PanelMTZ|VERSION"},
@@ -50,14 +98,16 @@ function Versiones(){
                 {label:"DescargaLocal", value:"DescargaLocal|VERSION"},
                 {label:"DualpointCaja", value:"ZonaEntrega|Version"},
                 {label:"Dualpointllamador", value:"ZonaLlamador|Version"},
-                {label:"Informes", value:"Informes"},
+                {label:"Informes", value:"Informes|Version"},
                 {label:"Meli", value:"PanelMELI|VERSION"},
                 {label:"OCX", value:"CFOCXVERSI"},
                 {label:"PantallaComanda", value:"PantallaComanda"},
                 {label:"Peya", value:"PanelPedidosYa|VERSION"},
                 {label:"Profit", value:"VERSION"},
                 {label:"Rappi", value:"PanelRappi"},
-                {label:"totem.exe", value:"VERSIONT"}]
+                {label:"totem.exe", value:"VERSIONT"},
+                {label:"DLL MercadoPago", value:"ActiveX|Version"},
+		{label:"Totem Version", value:"TOTEM_VERSION"}]
 
 
 
@@ -81,13 +131,23 @@ const buscadorselect = (select)=>{
 
 
 let versiones=[]
-if(VersionesPRP.length>0/*||VersionesFRP.length>0*/)
-{
+if(VersionesPRP.length>0 ||VersionesFRP.length>0 || VersionesGMG.length>0 || VersionesFRP_UY.length>0 || VersionesPRP_UY.length>0 )
+{ 
     VersionesPRP.map(propios => {
         versiones.push(propios)
     }  )
-   // versiones.push(VersionesFRP)
-    
+    VersionesFRP.map(franquicias => {
+      versiones.push(franquicias)
+  }  )
+  VersionesGMG.map(gmg => {
+      versiones.push(gmg)
+  }  )
+VersionesFRP_UY.map(frq_uy => {
+      versiones.push(frq_uy)
+  }  )
+VersionesPRP_UY.map(Prq_uy => {
+      versiones.push(Prq_uy)
+  }  )
 }
 
 
@@ -184,8 +244,9 @@ return (
                     placeholder='Version'
                     onChange={buscador}
                 />        
+                
             </div>
-            <div>
+            <div className='botoncito'>
               <button onClick={() => setEnviarParametro(true)} className='boton'>Consultar</button>
               </div>
             </div>
