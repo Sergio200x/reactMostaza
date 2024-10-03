@@ -17,11 +17,11 @@ function App(){
 
     return (
        
-        <div className=''>         
+        <div className='cosas'>         
         
             <h1 className='tituloHome'>Panel de monitoreo</h1>
             <div className="mb-2">                                
-                <> 
+                < > 
                 
                 <Link to="/promos" ><Button className='butonboostrap'variant="primary" size="lg" style={{backgroundColor:'whitesmoke',borderColor:'whitesmoke', width:'300px', height:'150px', marginRight:'20px', fontSize:'35px', color:'red', fontFamily:'Poppins' }}>Promos</Button>{''}</Link>
                         
@@ -31,6 +31,8 @@ function App(){
                  < Link to="/space"><Button className='butonboostrap'variant="primary" style={{backgroundColor:'whitesmoke',borderColor:'whitesmoke', width:'300px', height:'150px', marginRight:'20px', fontSize:'35px', color:'red', fontFamily:'Poppins'}}>
                  Dashboard Mesa</Button>{' '}</Link>
                   
+                 < Link to="/Login"><Button className='butonboostrap'variant="primary" style={{backgroundColor:'whitesmoke',borderColor:'whitesmoke', width:'300px', height:'150px', marginRight:'20px', fontSize:'35px', color:'red', fontFamily:'Poppins'}}>
+                 Delivery</Button>{' '}</Link>
                 </>
             </div>  
    

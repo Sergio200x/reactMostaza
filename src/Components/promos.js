@@ -188,6 +188,10 @@ useEffect(() => {
         {
           Header: "Precio Promo",
           accessor: "Precio Promo"
+        },
+        {
+          Header: "Segmento",
+          accessor: "Segmento"
         }
         ,
         {

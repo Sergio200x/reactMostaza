@@ -14,6 +14,8 @@ import SPACE from './Components/SPACE.js';
 import Promos from './Components/promos.js'; 
 import Ventas from './Components/ventas.js'; 
 import Dbspace from './Components/databaseSpace.js'; 
+import Deli from './Components/Delivery.js'
+import Login from './Components/LogIn.js'
 
 function App() {
   return (
@@ -33,7 +35,8 @@ function App() {
         <Route path="/promos" exact={true} element={<Promos/>}/>
         <Route path="/space" exact={true} element={<SPACE/>}/>
         <Route path="/ventas" exact={true} element={<Ventas/>}/>
-        <Route path="/dbspace" exact={true} element={<Dbspace/>}/>
+        <Route path="/dbspace" exact={true} element={<Dbspace/>}/>     
+        <Route path="/login" exact={true} element={<Login/>}/>
      
 
      </Routes>  

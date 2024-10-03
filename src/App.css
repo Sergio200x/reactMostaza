@@ -24,6 +24,11 @@
   color: white;
 }
 
+.mb-4{
+  max-height: 40px;
+}
+
+
 .App-link {
   color: #61dafb;
 }
