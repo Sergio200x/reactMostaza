@@ -16,6 +16,7 @@ import Ventas from './Components/ventas.js';
 import Dbspace from './Components/databaseSpace.js'; 
 import Deli from './Components/Delivery.js'
 import Login from './Components/LogIn.js'
+import Horarios from './Components/horariosDeli.js'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/ventas" exact={true} element={<Ventas/>}/>
         <Route path="/dbspace" exact={true} element={<Dbspace/>}/>     
         <Route path="/login" exact={true} element={<Login/>}/>
+        <Route path="/horarios" exact={true} element={<Horarios/>}/>
      
 
      </Routes>  
