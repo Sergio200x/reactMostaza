@@ -4,6 +4,7 @@ import '../App.js';
 import '../../src/css.css';
 import { MDBContainer, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import Delivery from './Delivery.js'; // Importa el componente delivery.js
+import HomeDeli from './HomeDeli.js';
 
 function Login() {
   const [usuario, setUsuario] = useState('');
@@ -44,7 +45,7 @@ function Login() {
   };
 
   if (isLoggedIn) {
-    return <Delivery />; // Renderiza el componente delivery.js si el usuario está autenticado
+    return <HomeDeli />; // Renderiza el componente delivery.js si el usuario está autenticado
   }
 
   return (

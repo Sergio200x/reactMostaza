@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTable, useSortBy } from 'react-table';
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 import '../App.js';
 import '../../src/css.css';
 import loadingif from '../images/loading-32.gif';
-import { Link } from 'react-router-dom';
 
 function Deli() {
   const [dashDeli, setdashDeli] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_PROPIOS_FRANQUICIAS}/deli`)
@@ -34,6 +34,17 @@ function Deli() {
         setIsLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const results = dashDeli.filter(local =>
+        local.codLocal.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredData(results);
+    } else {
+      setFilteredData([]);
+    }
+  }, [searchTerm, dashDeli]);
 
   const columns = useMemo(
     () => [
@@ -65,7 +76,7 @@ function Deli() {
     []
   );
 
-  const data = useMemo(() => dashDeli, [dashDeli]);
+  const data = useMemo(() => filteredData, [filteredData]);
 
   const tableInstance = useTable({ columns, data }, useSortBy);
 
@@ -80,8 +91,8 @@ function Deli() {
   const exportToExcel = () => {
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.json_to_sheet(dashDeli);
-    XLSX.utils.book_append_sheet(wb, ws, 'Deli Data');
-    XLSX.writeFile(wb, 'DeliData.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'Estado Tiendas');
+    XLSX.writeFile(wb, 'Estado_Tiendas.xlsx');
   };
 
   if (isLoading) {
@@ -94,79 +105,93 @@ function Deli() {
 
   return (
     <div className='deli-container'>
-        <div><h1 className='tituloDeli'>Locales</h1></div>
-      
-      <br />
-      {dashDeli.length === 0 ? (
-        'Cargando Ventas'
-      ) : (
-        <table {...getTableProps()} style={{ border: 'solid 1px black' }}>
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    style={{
-                      borderBottom: 'solid 3px red',
-                      background: 'red',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      fontSize: '130%',
-                      padding: '5px',
-                    }}
-                  >
-                    {column.render('Header')}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? ' 🔽'
-                          : ' 🔼'
-                        : ''}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  style={{
-                    backgroundColor: 'whitesmoke',
-                  }}
-                >
-                  {row.cells.map(cell => (
-                    <td
-                      {...cell.getCellProps()}
+      <div><h1 className='tituloDelis' style={{"margin": 'auto', "color": 'whitesmoke', "margin-top": '2%', "margin-bottom": '2%'}}>Locales</h1></div>
+      <br></br>
+      <div className='contenedor'>
+        <div className='buscadorDeli'>
+          <input
+            type="text"
+            placeholder="Buscar código de local"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <br />
+        {searchTerm === '' ? (
+          <div><t2 style={{color:'whitesmoke', fontSize:'30px', "display":'show'}}>Escribe el código del local para ver el estado</t2></div>
+        ) : filteredData.length === 0 ? (
+          'No se encontraron resultados'
+        ) : (
+          <table {...getTableProps()} style={{ border: 'solid 1px black' }}>
+            <thead>
+              {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map(column => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                       style={{
-                        padding: '10px',
-                        border: 'solid 1px gray',
-                        background: 'whitesmoke',
-                        color:
-                          cell.column.id === 'estado'
-                            ? cell.value === 'activo'
-                              ? '#00f900'
-                              : cell.value === 'inactivo'
-                              ? '#ff0000'
-                              : 'black'
-                            : 'black',
-                        fontSize: '100%',
-                        fontWeight: 'bolder',
+                        borderBottom: 'solid 3px red',
+                        background: 'red',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '130%',
+                        padding: '5px',
                       }}
                     >
-                      {cell.render('Cell')}
-                    </td>
+                      {column.render('Header')}
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? ' 🔽'
+                            : ' 🔼'
+                          : ''}
+                      </span>
+                    </th>
                   ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      )}
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map(row => {
+                prepareRow(row);
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    style={{
+                      backgroundColor: 'whitesmoke',
+                    }}
+                  >
+                    {row.cells.map(cell => (
+                      <td
+                        {...cell.getCellProps()}
+                        style={{
+                          padding: '10px',
+                          border: 'solid 1px gray',
+                          background: 'whitesmoke',
+                          color:
+                            cell.column.id === 'estado'
+                              ? cell.value === 'activo'
+                                ? '#00f900'
+                                : cell.value === 'inactivo'
+                                ? '#ff0000'
+                                : 'black'
+                              : 'black',
+                          fontSize: '100%',
+                          fontWeight: 'bolder',
+                        }}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+        <br />
+        <button onClick={exportToExcel} className="btn btn-success">Exportar todo a Excel</button>
+      </div>
     </div>
   );
 }

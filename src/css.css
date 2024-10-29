@@ -790,6 +790,22 @@ opacity: 95%;
     opacity: 100%;
    
   }
+
+.DELI1{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.delihijo1{
+    margin-left: -3%;
+    width: 52%;
+}
+
+.delihijo2{
+    margin-top: 0.85%;
+    width:50%;
+}
+
 .deli-container{
     margin-left:25%;
     text-align: center;
